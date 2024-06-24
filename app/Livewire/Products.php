@@ -10,7 +10,7 @@ class Products extends Component
 {
     use WithPagination;
 
-    public $perPage = 4; 
+    public $perPage = 12; 
 
     public function loadMore()
     {
@@ -20,6 +20,8 @@ class Products extends Component
     public function render()
     {
         $products = product::take($this->perPage)->get();
-        return view('livewire.products',compact('products'));
+        $productInDB=product::count();
+
+        return view('livewire.products',compact('products','productInDB'));
     }
 }
