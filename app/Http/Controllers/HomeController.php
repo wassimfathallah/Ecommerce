@@ -16,7 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('index');
     }
 
     /**
@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index(Request $request, category $category)
     {
-        $products = product::all();
+        $products = product::paginate(10);
         $categories = category::with('products')->has('products')->get();
         $searchTerm = $request->input('search_product');
         if (!empty($searchTerm)) {
